@@ -9,12 +9,11 @@ const router = require('./router');
 const app = express();
 
 // DB setup
-const db = "mongodb://heron:heron123@ds125680.mlab.com:25680/auth_database"
+const db = "mongodb://heron:heron123@ds053948.mlab.com:53948/scream-app";
 mongoose.connect(db).then(() => console.log('database connected'));
 
 // App setup
 // setup middleware
-app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

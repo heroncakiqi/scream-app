@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 const screamSchema = new Schema({
-  scream: {type: String},
+  text: {type: String, trim: true},
   comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
   likes: [{type: Schema.Types.ObjectId, ref: 'User'}],
   author: {type: Schema.Types.ObjectId, ref: 'User'}
