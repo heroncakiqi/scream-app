@@ -1,53 +1,45 @@
-import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form';
-import * as actions from '../../actions';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import React, { useEffect, useContext, useRef } from 'react'
 
-class SignUp extends Component {
-  componentWillUnmount() {
-    if(this.props.errorMessage){
-      this.props.removeError();
+import { Context } from '../../context/GlobalState';
+
+const SignUp = props => {
+  const { auth, getToken, removeAuthError } = useContext(Context);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  useEffect(() => {
+    return () => {
+      return getToken.errorMessage ? removeAuthError() : '';
     }
+  },[])
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const signupForm = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value
+    }
+    getToken(signupForm, () => {
+      console.log('done')
+    }, {signup: true});
   }
-  handleSubmit = (formProps) => {
-    this.props.signup(formProps, () => {
-      this.props.history.push('/feature');
-    });
-  }
-  render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
+        <form onSubmit={handleSubmit}>
         <fieldset>
           <label>Email:</label>
-          <Field
-            name='email'
-            type='text'
-            component='input'
-          />
-          <span> {this.props.errorMessage && this.props.errorMessage.email}</span>
+          <input ref={emailRef} type="text"/>
+          <span> {auth.errorMessage && auth.errorMessage.email}</span>
         </fieldset>
         <fieldset>
           <label>Password:</label>
-          <Field
-            name='password'
-            type='password'
-            component='input'
-          />
-          <span> {this.props.errorMessage && this.props.errorMessage.password}</span>
+          <input ref={passwordRef} type="password"/>
+          <span> {auth.errorMessage && auth.errorMessage.password}</span>
         </fieldset>
         <button>Sign Up!</button>
         </form>
       </div>
     )
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    errorMessage: state.auth.errorMessage
-  }
-}
 
-export default compose(connect(mapStateToProps, actions), reduxForm({ form: 'signup '}))(SignUp);
+
+export default SignUp

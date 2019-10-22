@@ -1,32 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
-export default ChildComponent => {
-  class ComposedComponent extends Component {
-    // Our component just got rendered
-    componentDidMount() {
-      this.shouldNavigateAway();
-    }
+import { Context } from '../context/GlobalState';
 
-    // Our component just got updated
-    componentDidUpdate() {
-      this.shouldNavigateAway();
-    }
+const requireAuth = (Component) => () => {
+  let history = useHistory();
+  const { auth } = useContext(Context);
 
-    shouldNavigateAway() {
-      if (!this.props.auth) {
-        this.props.history.push('/');
-      }
-    }
-
-    render() {
-      return <ChildComponent {...this.props} />;
+  useEffect(() => {
+    shouldNavigateAway();
+  });
+  const shouldNavigateAway = () => {
+    if (!auth.authenticated) {
+      history.push('/login');
     }
   }
+    return <Component />;
+}
 
-  function mapStateToProps(state) {
-    return { auth: state.auth.authenticated };
-  }
-
-  return connect(mapStateToProps)(ComposedComponent);
-};
+export default requireAuth

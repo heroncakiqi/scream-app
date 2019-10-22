@@ -1,13 +1,13 @@
 import { AUTH_USER, AUTH_ERROR } from '../actions/types';
-const INITIAL_STATE = {
-  authenticated : '',
+export const INITIAL_STATE = {
+  authenticated : localStorage.getItem('token') ? localStorage.getItem('token') : '',
   errorMessage: {
     email: '',
     password: ''
   }
 }
 
-export default (state = INITIAL_STATE, action) => {
+export const signupReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case AUTH_USER:
       return {...state, authenticated: action.payload};

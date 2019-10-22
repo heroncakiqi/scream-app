@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useContext, } from 'react';
+import { useHistory } from "react-router-dom";
 
-import * as actions from '../../actions';
+import { Context } from '../../context/GlobalState';
 
-class LogOut extends Component {
-  componentWillMount() {
-    this.props.logout();
-  }
-  render() {
-    return (
-      <div>
-        byeee byeee!
-      </div>
-    )
-  }
+const LogOut = () => {
+  const { logout } = useContext(Context);
+  const history = useHistory();
+  useEffect(() => {
+    logout();
+  },[]);
+  return(
+    <div>
+      byeee byeee!
+    </div>
+  )
 }
 
-export default connect(null, actions)(LogOut);
+export default LogOut
