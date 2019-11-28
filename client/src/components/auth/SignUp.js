@@ -8,7 +8,7 @@ const SignUp = props => {
   const passwordRef = useRef();
   useEffect(() => {
     return () => {
-      return getToken.errorMessage ? removeAuthError() : '';
+      return getToken.errorMessage && removeAuthError();
     }
   },[])
   const handleSubmit = (e) => {
@@ -18,7 +18,6 @@ const SignUp = props => {
       password: passwordRef.current.value
     }
     getToken(signupForm, () => {
-      console.log('done')
     }, {signup: true});
   }
     return (

@@ -9,11 +9,10 @@ export const Context = React.createContext();
 const GlobalState = ({ children }) => {
 
   // declare state
-  const [auth, authDipatch] = useReducer(signupReducer, INITIAL_STATE);
+  const [auth, authDipatch] = useReducer(signupReducer);
 
   const getToken = async (formProps, callback, {signup: props = false}) => {
     try {
-      console.log(props);
       const res = await axios.post(`http://localhost:6969/${props ? 'signup' : 'login'}`, formProps);  
       authDipatch({ 
         type: AUTH_USER, 
@@ -23,8 +22,11 @@ const GlobalState = ({ children }) => {
       callback();
      }
      catch(err) {
-       console.log(err.response)
-      authDipatch({ type: AUTH_ERROR, payload: err.response.data });
+      if(err.respose) {
+        authDipatch({ type: AUTH_ERROR, payload: err.response.data });
+      } else {
+        console.log(err)
+      }
      }
   }
 
