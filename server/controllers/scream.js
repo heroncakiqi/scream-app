@@ -2,8 +2,10 @@ const Scream = require('../models/Scream');
 
 // get screams
 exports.getScreams = async (req, res, next) => {
-  const isScreams = await Scream.find();
-  if(isScreams.length === 0) return res.status(404).json({error: 'thera are no screams!!'})
+  const isScreams = await Scream.find()
+    .populate({path: 'author', select: ['username', 'image']})
+  ;
+  if(isScreams.length === 0) return res.status(404).json({error: 'thera are no screams!!'});
   res.json(isScreams);
 }
 
@@ -14,7 +16,7 @@ exports.postScream = async (req, res, next) => {
     author: req.user.id
   }
   if(!newScream.text) return res.status(422).json({error: 'no text provided!'});
-  const scream = await new Scream(newScream);
+  const scream = new Scream(newScream);
   await scream.save();
   res.json(scream);
 }

@@ -5,6 +5,10 @@ const passportSevice = require('../services/passport');
 const passport = require('passport');
 const config = require('../config');
 
+exports.user = async (req, res, next) => {
+  res.json(req.user);
+}
+
 // signun new users
 exports.signup = async (req, res, next) => {
   try{

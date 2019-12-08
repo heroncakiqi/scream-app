@@ -1,12 +1,13 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled, { createGlobalStyle } from 'styled-components'
 import GlogalState from './context/GlobalState';
+import PrivateRoute from './components/PrivateRoute';
+
 
 import Header from './components/Header';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
-import Feature from './components/Feature';
 import LogOut from './components/auth/LogOut';
 import LogIn from './components/auth/LogIn';
 
@@ -30,11 +31,12 @@ const App = () => {
           <AppContainer>
             <GlobalStyle />
             <Header />
-            <Route path='/' exact component={Home} />
-            <Route path='/signup' component={SignUp}/>
-            <Route path='/feature' component={Feature}/>
-            <Route path='/logout' component={LogOut}/>
-            <Route path='/login' component={LogIn}/>
+            <Switch>
+              <PrivateRoute path='/' exact component={Home} />
+              <Route path='/signup' component={SignUp}/>
+              <Route path='/logout' component={LogOut}/>
+              <Route path='/login' component={LogIn}/>
+            </Switch>
           </AppContainer>
         </Router>
       </GlogalState>

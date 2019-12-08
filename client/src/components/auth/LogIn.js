@@ -22,7 +22,7 @@ const LogIn = (props) => {
       password: passwordRef.current.value
     }
     getToken(signupForm, () => {
-      history.push('/feature');
+      history.push('/');
     }, {})
   }
     return (

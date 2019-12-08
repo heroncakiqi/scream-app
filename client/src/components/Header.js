@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { Context } from '../context/GlobalState';
 
 const HeaderContainer = styled.div`
@@ -23,14 +23,16 @@ const Header = props => {
       <HeaderContainer>
         {
           auth.authenticated ? 
-          <Link><i className="fas fa-plus"></i></Link>
-          : <Link to='/login'>Log In</Link>
-        }
-        <Link to='/'><i className="fas fa-home"></i></Link>
-        {
-          auth.authenticated ? 
-          <Link><i className="fas fa-bell"></i></Link>
-          : <Link to='/signup'>Sign Up</Link>
+          <>
+            <a><i className="fas fa-plus"></i></a>
+            <Link to='/'><i className="fas fa-home"></i></Link>
+            <a><i className="fas fa-bell"></i></a>
+          </>
+          : 
+          <>
+            <Link to='/login'>Log In</Link>
+            <Link to='/signup'>Sign Up</Link>
+          </>
         }
       </HeaderContainer>
     )

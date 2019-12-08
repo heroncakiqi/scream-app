@@ -1,7 +1,6 @@
 const express  = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
 const expressValidator = require('express-validator');
 const cors = require('cors');
  
@@ -18,10 +17,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
+app.use(express.static('public'));
 
 //apply router
 app.use('/', router);
 
 // Server setup
 const port = process.env.PORT || 6969;
-app.listen(port, () => console.log(`Server listening on port: ${port}`))
+app.listen(port, () => console.log(`Server listening on port: ${port}`));

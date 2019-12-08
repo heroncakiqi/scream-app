@@ -1,22 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import requireAuth from './requireAuth';
+import ProfileWindow from './ProfileWindow';
+import ScreamsList from './ScreamsList';
 
 const Home = () => {
-  const Main = styled.main`
+  const HomeStyle = styled.div`
     display: flex;
-    justify-self: center;
+    justify-content: space-between;
     width: 800px;
-    background-color: pink;
-    height: 700px;
     margin: 0 auto;
   `;
   return (
-    <Main>
-      <h3></h3>
-    </Main>
+    <HomeStyle>
+      <ScreamsList />
+      <ProfileWindow />
+    </HomeStyle>
   )
 }
 
-export default requireAuth(Home);
+export default Home;
