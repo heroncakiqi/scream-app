@@ -1,4 +1,9 @@
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
-export const FETCH_SCREAMS = 'fetch_screams';
+export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_USER = 'fetch_user';
+export const LIKE_POST = 'like_post'
+export const LOGOUT = 'logout';
+export const TOGGLE_MODAL = 'toggle_modal'
+export const ADD_POST = 'add_props'
+export const FETCH_COMMENTS = 'fetch_comments'

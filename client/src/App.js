@@ -1,14 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled, { createGlobalStyle } from 'styled-components'
-import GlogalState from './context/GlobalState';
-import PrivateRoute from './components/PrivateRoute';
-
+import { Provider as PostProvider }  from './context/postsContext';
+import { Provider as UserProvider }  from './context/userContext';
+import { Provider as AuthProvider }  from './context/authContext';
+import { Provider as GlobalProvider } from './context/globalContext'
 
 import Header from './components/Header';
 import Home from './components/Home';
 import SignUp from './components/auth/SignUp';
-import LogOut from './components/auth/LogOut';
 import LogIn from './components/auth/LogIn';
 
 const GlobalStyle = createGlobalStyle`
@@ -26,20 +26,25 @@ const AppContainer = styled.div`
 
 const App = () => {
     return (
-      <GlogalState>
-        <Router>
-          <AppContainer>
-            <GlobalStyle />
-            <Header />
-            <Switch>
-              <PrivateRoute path='/' exact component={Home} />
-              <Route path='/signup' component={SignUp}/>
-              <Route path='/logout' component={LogOut}/>
-              <Route path='/login' component={LogIn}/>
-            </Switch>
-          </AppContainer>
-        </Router>
-      </GlogalState>
+      <GlobalProvider>
+        <AuthProvider>
+          <UserProvider>
+            <PostProvider>
+              <Router>
+                <AppContainer>
+                  <GlobalStyle />
+                  <Header />
+                  <Switch>
+                    <Route path='/' exact component={Home} />
+                    <Route path='/signup' component={SignUp}/>
+                    <Route path='/login' component={LogIn}/>
+                  </Switch>
+                </AppContainer>
+              </Router>
+            </PostProvider>
+          </UserProvider>
+        </AuthProvider>
+      </GlobalProvider>
     )
 }
 

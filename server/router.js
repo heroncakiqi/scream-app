@@ -34,5 +34,8 @@ router.post('/scream/like/:id', requireAuth, scream.likeScream);
 // post comment
 router.post('/comment/:screamId', requireAuth, comment.postComment);
 
+// get screams comments
+router.get('/comment/:screamId', requireAuth, comment.getComments)
+
 
 module.exports = router;

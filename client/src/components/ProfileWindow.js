@@ -1,7 +1,8 @@
 import React, {useContext, useEffect} from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
-import { Context } from '../context/GlobalState';
+import { Context as UserContext } from '../context/userContext';
+import { Context as AuthContext } from '../context/authContext';
 
 const ProfileStyles = styled.div`
   flex: 1;
@@ -26,7 +27,8 @@ const ProfileStyles = styled.div`
 `;
 
 const ProfileWindow = () => {
-  const { user, fetchUser, logout } = useContext(Context);
+  const { state, fetchUser } = useContext(UserContext);
+  const { logout } = useContext(AuthContext)
   useEffect(() => {
     async function get() {
       await fetchUser();
@@ -36,9 +38,9 @@ const ProfileWindow = () => {
 
   return (
     <ProfileStyles>
-        <img src={user.image} alt=""/>
-        <p>{user.username}</p>
-        <p>{user.username && `Joined ${dateFormat(user.date, "mmm, yyyy")}`}</p>
+        <img src={state.image} alt=""/>
+        <p>{state.username}</p>
+        <p>{state.username && `Joined ${dateFormat(state.date, "mmm, yyyy")}`}</p>
         <div className='signout-edit'>
           <i onClick={() => logout()} className="fas fa-sign-out-alt"></i>
           <i className="far fa-edit"></i>
