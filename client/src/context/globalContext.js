@@ -5,17 +5,17 @@ import createContext from "./createContext";
 const globalReducer = (state, action) => {
   switch(action.type) {
     case TOGGLE_MODAL:
-      return {...state, modal: !state.modal};
+      return {...state, modal: {isOpen: !state.modal.isOpen, content: action.payload}};
     default:
       return state;
   }
 }
 
   //toggle Modal
-  const toggleModal = dispatch => async () => {
-    dispatch({type: TOGGLE_MODAL})
-  }
+const toggleModal = dispatch => async (content) => {
+  dispatch({type: TOGGLE_MODAL, payload: content || ""})
+}
 
-  export const { Context, Provider } = createContext(globalReducer, {
-    toggleModal
-   }, {modal: false})
+export const { Context, Provider } = createContext(globalReducer, {
+  toggleModal
+}, {modal: {isOpen: false, content: ""}})

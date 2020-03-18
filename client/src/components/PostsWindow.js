@@ -15,7 +15,7 @@ const PostsWindow = props => {
   return (
     <ListStyle>
       {state.map(item => {
-        return <Post key={item._id} scream={item} />
+        return <Post key={item.data._id} scream={item} />
       })}
     </ListStyle>
   )

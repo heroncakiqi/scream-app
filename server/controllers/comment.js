@@ -9,7 +9,7 @@ exports.getComments = async (req, res, next) => {
       .populate({path: 'author', select: ['username', 'image']})
       .sort({ date: 'desc'})
     ;
-    res.json({screamId, comments: hasComments})
+    res.json(hasComments)
   } catch(err) {
     res.json(err)
   }

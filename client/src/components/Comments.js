@@ -13,7 +13,10 @@ const FormStyle = styled.form`
  input {
    flex: 1;
    outline: none;
-   padding: 6px;
+   padding: 8px;
+   background: #F0F2F5;
+   border: none;
+   border-radius: 6px;
  }
 `
 const FormContainer = styled.div`
@@ -21,6 +24,7 @@ const FormContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  margin-bottom: 10px;
 `
 
 const SingleComment = styled.div`
@@ -28,8 +32,8 @@ const SingleComment = styled.div`
 `
 
 const UserImage = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 15px;
   margin: 5px;
 `;
@@ -39,6 +43,7 @@ const CommentTextContainer = styled.div`
   margin: 6px;
   padding: 6px 12px;
   border-radius: 6px;
+  background: #F0F2F5;
 `
 
 const Comments = ({comments}) => {

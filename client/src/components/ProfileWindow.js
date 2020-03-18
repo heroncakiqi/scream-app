@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import { Context as UserContext } from '../context/userContext';
 import { Context as AuthContext } from '../context/authContext';
+import { Context as GlobalContext } from '../context/globalContext';
 
 const ProfileStyles = styled.div`
   flex: 1;
@@ -11,6 +12,8 @@ const ProfileStyles = styled.div`
   align-items: center;
   align-self: flex-start;
   flex-direction: column;
+  margin-top: 20px;
+  background: #FFFFFF;
   img {
     width: 150px;
     height: auto;
@@ -27,23 +30,21 @@ const ProfileStyles = styled.div`
 `;
 
 const ProfileWindow = () => {
-  const { state, fetchUser } = useContext(UserContext);
+  const { state: user, fetchUser } = useContext(UserContext);
   const { logout } = useContext(AuthContext)
+  const { toggleModal } = useContext(GlobalContext)
   useEffect(() => {
-    async function get() {
-      await fetchUser();
-     }
-     get();
+    fetchUser();
   },[]);
 
   return (
     <ProfileStyles>
-        <img src={state.image} alt=""/>
-        <p>{state.username}</p>
-        <p>{state.username && `Joined ${dateFormat(state.date, "mmm, yyyy")}`}</p>
+        <img src={user.image} alt=""/>
+        <p>{user.username}</p>
+        <p>{user.username && `Joined ${dateFormat(user.date, "mmm, yyyy")}`}</p>
         <div className='signout-edit'>
           <i onClick={() => logout()} className="fas fa-sign-out-alt"></i>
-          <i className="far fa-edit"></i>
+          <i onClick={() => toggleModal('edit_profile')} className="far fa-edit"></i>
         </div>
     </ProfileStyles>
   )

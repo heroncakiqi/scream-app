@@ -7,3 +7,4 @@ export const LOGOUT = 'logout';
 export const TOGGLE_MODAL = 'toggle_modal'
 export const ADD_POST = 'add_props'
 export const FETCH_COMMENTS = 'fetch_comments'
+export const ADD_COMMENT = 'add_comment'

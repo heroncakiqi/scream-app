@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import Modal from 'react-modal';
 import { Context as GlobalContext } from "../context/globalContext"
 import SharePost from "./SharePost"
+import EditProfile from "./EditProfile"
  
 const customStyles = {
   content : {
@@ -15,16 +16,29 @@ const customStyles = {
 };
 
 const CustomModal = () => {
-  const {state: {modal}, toggleModal } = useContext(GlobalContext)
+  const {state: {modal: {isOpen, content}}, toggleModal } = useContext(GlobalContext)
+
+  let element
+  console.log(content, isOpen)
+    switch(content) {
+      case "create_post":
+        element = <SharePost />
+      break;
+      case "edit_profile":
+        element = <EditProfile />
+      break;
+      default:
+        return ''
+    }
 
     return (
       <Modal
-        isOpen={modal}
+        isOpen={isOpen}
         onRequestClose={toggleModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <SharePost />
+        {element}
       </Modal>
     )
 }
